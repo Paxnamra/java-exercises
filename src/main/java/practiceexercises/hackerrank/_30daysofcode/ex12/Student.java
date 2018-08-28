@@ -1,4 +1,4 @@
-package practiceexercises.hackerrank._30daysofcode.Ex12;
+package practiceexercises.hackerrank._30daysofcode.ex12;
 
 public class Student extends Person {
 

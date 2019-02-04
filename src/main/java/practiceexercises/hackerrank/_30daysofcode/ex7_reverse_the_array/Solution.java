@@ -1,4 +1,4 @@
-package practiceexercises.hackerrank._30daysofcode.ex7;
+package practiceexercises.hackerrank._30daysofcode.ex7_reverse_the_array;
 
 import java.util.Arrays;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package practiceexercises.hackerrank._30daysofcode.ex13;
+package practiceexercises.hackerrank._30daysofcode.ex13_abstract_class;
 
 abstract class Book {
 

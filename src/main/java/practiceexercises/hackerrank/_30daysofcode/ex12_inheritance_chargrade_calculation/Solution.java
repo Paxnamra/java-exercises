@@ -1,4 +1,4 @@
-package practiceexercises.hackerrank._30daysofcode.ex12;
+package practiceexercises.hackerrank._30daysofcode.ex12_inheritance_chargrade_calculation;
 
 import java.util.*;
 

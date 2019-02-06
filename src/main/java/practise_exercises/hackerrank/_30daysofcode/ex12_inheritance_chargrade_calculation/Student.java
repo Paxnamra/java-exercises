@@ -1,4 +1,4 @@
-package practiceexercises.hackerrank._30daysofcode.ex12_inheritance_chargrade_calculation;
+package practise_exercises.hackerrank._30daysofcode.ex12_inheritance_chargrade_calculation;
 
 public class Student extends Person {
 

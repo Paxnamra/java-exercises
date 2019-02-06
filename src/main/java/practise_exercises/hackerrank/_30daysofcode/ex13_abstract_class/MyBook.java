@@ -1,4 +1,4 @@
-package practiceexercises.hackerrank._30daysofcode.ex13_abstract_class;
+package practise_exercises.hackerrank._30daysofcode.ex13_abstract_class;
 
 class MyBook extends Book{
 

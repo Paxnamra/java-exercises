@@ -1,4 +1,4 @@
-package practiceexercises.hackerrank._30daysofcode.ex6_manipulations_on_strings_arrays;
+package practise_exercises.hackerrank._30daysofcode.ex6_manipulations_on_strings_arrays;
 
 import java.util.Scanner;
 

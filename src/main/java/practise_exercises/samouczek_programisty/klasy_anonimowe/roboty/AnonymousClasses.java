@@ -1,6 +1,6 @@
-package practise_exercises.samouczekprogramisty.klasy_anonimowe;
+package practise_exercises.samouczek_programisty.klasy_anonimowe.roboty;
 
-public class AnonymousClasses implements GreetingModule {
+public class AnonymousClasses {
 
     public static class Robot {
 
@@ -15,9 +15,8 @@ public class AnonymousClasses implements GreetingModule {
         }
     }
 
-    @Override
-    public void sayHello() {
-
+    public interface GreetingModule {
+        void sayHello();
     }
 
     public static void main(String[] args) {

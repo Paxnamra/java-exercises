@@ -16,5 +16,8 @@ public class StepsInPrimesTest {
         assertEquals("[101, 107]", Arrays.toString(StepsInPrimes.step(6,100,110)));
         assertEquals("[359, 367]", Arrays.toString(StepsInPrimes.step(8,300,400)));
         assertEquals("[307, 317]", Arrays.toString(StepsInPrimes.step(10,300,400)));
+
+        assertEquals("null", Arrays.toString(StepsInPrimes.step(20,100,110)));
+        assertEquals("null", Arrays.toString(StepsInPrimes.step(6,100,101)));
     }
 }

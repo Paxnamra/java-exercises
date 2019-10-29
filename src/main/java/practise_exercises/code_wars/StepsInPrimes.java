@@ -9,17 +9,18 @@ public class StepsInPrimes {
     public static long[] step(int g, long m, long n) {
         List<Long> primes = new ArrayList<>();
 
-        for (long i = m; i <= n; i++) {
-            if (probablyPrime(i)) {
+        for (long i = m; i < n; i++) {
+            if (ifPrime(i)) {
                 primes.add(i);
             }
         }
         return selectedPair(g, primes);
     }
 
-    private static boolean probablyPrime(long number) {
+    private static boolean ifPrime(long number) {
+        int squared = (int) Math.sqrt(number);
 
-        for (int i = 2; i < number; i++) {
+        for (int i = 2; i <= squared; i++) {
             if ((number % i == 0)) {
                 return false;
             }
@@ -28,19 +29,18 @@ public class StepsInPrimes {
     }
 
     private static long[] selectedPair(int range, List<Long> selection) {
-        long[] pair = new long[2];
 
         for (long element : selection) {
             long searched = element + (long) range;
 
             while (selection.contains(searched)) {
+                long[] pair = new long[2];
                 pair[0] = element;
                 pair[1] = searched;
                 return pair;
             }
         }
-        //System.out.println("List elements: " + selection.toString()); //
-        return pair;
+        return null;
     }
 
     public static void main(String[] args) {
@@ -49,8 +49,5 @@ public class StepsInPrimes {
         System.out.println(Arrays.toString(step(8, 300, 400)));
         System.out.println(Arrays.toString(step(4, 30109, 30113)));
         System.out.println(Arrays.toString(step(2, 827537, 827539)));
-
-        //Execution Timed Out (16000 ms)
-        //xDDD
     }
 }

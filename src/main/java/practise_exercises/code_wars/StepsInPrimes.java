@@ -34,10 +34,7 @@ public class StepsInPrimes {
             long searched = element + (long) range;
 
             while (selection.contains(searched)) {
-                long[] pair = new long[2];
-                pair[0] = element;
-                pair[1] = searched;
-                return pair;
+                return new long[]{element, searched};
             }
         }
         return null;

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.Integer.MIN_VALUE;
+
 public class WeightForWeight {
 
     public static String orderWeight(String strng) {
@@ -65,6 +67,33 @@ public class WeightForWeight {
             }
         }
         return theLast;
+    }
+
+    private static List<Integer> swapInSublist(List<Integer> indexes, List<Integer> inputList) {
+        List<Integer> another = new ArrayList<>();
+        List<Integer> sublist = new ArrayList<>();
+
+        //sublist of repetitions on 2 in inputlist values
+        for (int e : indexes) {
+            int tmp = inputList.get(e);
+            another.add(tmp);
+        }
+
+        return another; //unsorted placeholder
+    }
+
+    private static int setMaxCharVal(List<Integer> ind, List<Integer> inp) {
+        int max = MIN_VALUE;
+
+        for (int el : ind) {
+            int temp = inp.get(el);
+            char[] chars = ("" + temp).toCharArray();
+
+            if (Character.getNumericValue(chars[0]) > max) {
+                max = Character.getNumericValue(chars[0]);
+            }
+        }
+        return max;
     }
 
     public static void main(String[] args) {

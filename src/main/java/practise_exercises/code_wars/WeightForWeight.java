@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.lang.Integer.MIN_VALUE;
-
 public class WeightForWeight {
 
     public static String orderWeight(String strng) {
@@ -47,7 +45,7 @@ public class WeightForWeight {
     }
 
     private static List<Integer> sortInput(List<Integer> inputArray, List<Integer> recalculatedArray) {
-        List<Integer> theLast = new ArrayList<>();
+        List<Integer> resultsList = new ArrayList<>();
 
         int biggest = recalculatedArray
                 .stream()
@@ -58,47 +56,41 @@ public class WeightForWeight {
 
         for (int w = 0; w <= biggest; w++) {
             for (int j = 0; j < recalculatedArray.size(); j++) {
+
                 if (recalculatedArray.get(j) == w) {
                     indexes.add(j);
-                    int listElement = inputArray.get(j);
-                    theLast.add(listElement);
+                }
+            }
+
+            if (!indexes.isEmpty()) {
+                if (indexes.size() == 1) {
+                    addValue(inputArray, resultsList, indexes);
                     indexes.clear();
+
+                } else {
+                    //addMultipleValues(inputArray, resultsList, indexes);
+                    //indexes.clear();
                 }
             }
         }
-        return theLast;
+        return resultsList;
     }
 
-    private static List<Integer> swapInSublist(List<Integer> indexes, List<Integer> inputList) {
-        List<Integer> another = new ArrayList<>();
-        List<Integer> sublist = new ArrayList<>();
-
-        //sublist of repetitions on 2 in inputlist values
-        for (int e : indexes) {
-            int tmp = inputList.get(e);
-            another.add(tmp);
-        }
-
-        return another; //unsorted placeholder
+    private static void addValue(List<Integer> inputArray, List<Integer> resultsList, List<Integer> indexes) {
+        int ind = indexes.get(0);
+        int listElement = inputArray.get(ind);
+        resultsList.add(listElement);
     }
 
-    private static int setMaxCharVal(List<Integer> ind, List<Integer> inp) {
-        int max = MIN_VALUE;
-
-        for (int el : ind) {
-            int temp = inp.get(el);
-            char[] chars = ("" + temp).toCharArray();
-
-            if (Character.getNumericValue(chars[0]) > max) {
-                max = Character.getNumericValue(chars[0]);
-            }
-        }
-        return max;
+    private static void addMultipleValues(List<Integer> inputArray, List<Integer> resultsList, List<Integer> indexes) {
+        //logic to get into comparing chars - here
+        //to sort them in proper order and add to the resultsList
     }
 
     public static void main(String[] args) {
 
-        System.out.println(orderWeight("333 51 8 222 68 900"));
+        System.out.println(orderWeight("900 24 8 51 68 20202 333 1 222"));
+        // should get: 1, 24, 222, 20202, 51, 8, 333, 900, 68
         System.out.println();
         System.out.println(orderWeight("81 20361 123430 460103 204064 231523 140931 5817 416830 27437 421961 474243 73590 408456 65493 377580 85296 307787 73989 478956 478886"));
         System.out.println();

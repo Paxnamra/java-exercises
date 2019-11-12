@@ -1,17 +1,15 @@
 package practise_exercises.code_wars;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class WeightForWeight {
+public class WeightForWeight implements Comparator {
 
     public static String orderWeight(String strng) {
         List<Integer> arrIntegerInput = new ArrayList<>();
-
-        for (String s : (strng.split("[\\s]"))) {
-            arrIntegerInput.add(Integer.valueOf(s));
-        }
+        stringToList(strng, arrIntegerInput);
 
         List<Integer> arrStringVals = recalculateWeight(strng.split("[\\s]"));
         List<Integer> sorted = sortInput(arrIntegerInput, arrStringVals);
@@ -20,18 +18,24 @@ public class WeightForWeight {
         System.out.println(arrStringVals);
         return String.valueOf(sorted)
                 .replace(",", "")
-                .replace("[","")
-                .replace("]","")
+                .replace("[", "")
+                .replace("]", "")
                 .trim();
     }
 
-    private static List<Integer> recalculateWeight(String[] strNumbers) {
-        List<Integer> changedNums = new ArrayList<>();
+    public static void main(String[] args) {
+        System.out.println(orderWeight("900 24 8 51 68 20202 333 1 222"));
+        System.out.println();
+        System.out.println(orderWeight("81 20361 123430 460103 204064 231523 140931 5817 416830 27437 421961 474243 73590 408456 65493 377580 85296 307787 73989 478956 478886"));
+        System.out.println();
+        System.out.println(orderWeight("2000 10003 1234000 44444444 9999 11 11 22 123"));
+        System.out.println();
+    }
 
-        for (int i = 0; i < strNumbers.length; i++) {
-            changedNums.add(transformValue(strNumbers[i]));
+    private static void stringToList(String strng, List<Integer> arrIntegerInput) {
+        for (String s : (strng.split("[\\s]"))) {
+            arrIntegerInput.add(Integer.valueOf(s));
         }
-        return changedNums;
     }
 
     private static int transformValue(String onArrIndex) {
@@ -44,15 +48,20 @@ public class WeightForWeight {
         return scaledNumber;
     }
 
+    private static List<Integer> recalculateWeight(String[] strNumbers) {
+        List<Integer> changedNums = new ArrayList<>();
+
+        for (int i = 0; i < strNumbers.length; i++) {
+            changedNums.add(transformValue(strNumbers[i]));
+        }
+        return changedNums;
+    }
+
     private static List<Integer> sortInput(List<Integer> inputArray, List<Integer> recalculatedArray) {
         List<Integer> resultsList = new ArrayList<>();
-
-        int biggest = recalculatedArray
-                .stream()
-                .collect(Collectors.summarizingInt(Integer::intValue))
-                .getMax();
-
         List<Integer> indexes = new ArrayList<>();
+
+        int biggest = getBiggestValue(recalculatedArray);
 
         for (int w = 0; w <= biggest; w++) {
             for (int j = 0; j < recalculatedArray.size(); j++) {
@@ -68,12 +77,19 @@ public class WeightForWeight {
                     indexes.clear();
 
                 } else {
-                    //addMultipleValues(inputArray, resultsList, indexes);
-                    //indexes.clear();
+                    addMultipleValues(inputArray, resultsList, indexes);
+                    indexes.clear();
                 }
             }
         }
         return resultsList;
+    }
+
+    private static int getBiggestValue(List<Integer> recalculatedArray) {
+        return recalculatedArray
+                .stream()
+                .collect(Collectors.summarizingInt(Integer::intValue))
+                .getMax();
     }
 
     private static void addValue(List<Integer> inputArray, List<Integer> resultsList, List<Integer> indexes) {
@@ -83,17 +99,21 @@ public class WeightForWeight {
     }
 
     private static void addMultipleValues(List<Integer> inputArray, List<Integer> resultsList, List<Integer> indexes) {
-        //logic to get into comparing chars - here
-        //to sort them in proper order and add to the resultsList
+        List<Integer> sublist = new ArrayList<>(resultsList);
+
+        for (int element : indexes) {
+            int listElement = inputArray.get(element);
+            sublist.add(listElement);
+        }
+
+        //sublist.sort(Integer::compare);
+
+        resultsList.addAll(sublist);
+        sublist.clear();
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(orderWeight("900 24 8 51 68 20202 333 1 222"));
-        // should get: 1, 24, 222, 20202, 51, 8, 333, 900, 68
-        System.out.println();
-        System.out.println(orderWeight("81 20361 123430 460103 204064 231523 140931 5817 416830 27437 421961 474243 73590 408456 65493 377580 85296 307787 73989 478956 478886"));
-        System.out.println();
-        System.out.println(orderWeight("2000 10003 1234000 44444444 9999 11 11 22 123"));
+    @Override
+    public int compare(Object o1, Object o2) {
+        return 0;
     }
 }

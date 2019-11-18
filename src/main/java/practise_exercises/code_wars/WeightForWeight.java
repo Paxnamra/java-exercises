@@ -1,11 +1,13 @@
 package practise_exercises.code_wars;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class WeightForWeight implements Comparator {
+import static java.lang.Integer.MIN_VALUE;
+
+public class WeightForWeight {
 
     public static String orderWeight(String strng) {
         List<Integer> arrIntegerInput = new ArrayList<>();
@@ -15,7 +17,6 @@ public class WeightForWeight implements Comparator {
         List<Integer> sorted = sortInput(arrIntegerInput, arrStringVals);
 
         System.out.println(strng);
-        System.out.println(arrStringVals);
         return String.valueOf(sorted)
                 .replace(",", "")
                 .replace("[", "")
@@ -24,7 +25,7 @@ public class WeightForWeight implements Comparator {
     }
 
     public static void main(String[] args) {
-        System.out.println(orderWeight("900 24 8 51 68 20202 333 1 222"));
+        System.out.println(orderWeight("900 24 8 51 68 20202 333 1 222 42"));
         System.out.println();
         System.out.println(orderWeight("81 20361 123430 460103 204064 231523 140931 5817 416830 27437 421961 474243 73590 408456 65493 377580 85296 307787 73989 478956 478886"));
         System.out.println();
@@ -99,21 +100,55 @@ public class WeightForWeight implements Comparator {
     }
 
     private static void addMultipleValues(List<Integer> inputArray, List<Integer> resultsList, List<Integer> indexes) {
-        List<Integer> sublist = new ArrayList<>(resultsList);
+        List<Integer> sublist = new ArrayList<>();
+        List<Integer> lowestLevelSublist = new ArrayList<>();
 
         for (int element : indexes) {
             int listElement = inputArray.get(element);
             sublist.add(listElement);
         }
 
-        //sublist.sort(Integer::compare);
+        int maxInSublist = maxCharVal(sublist);
 
-        resultsList.addAll(sublist);
-        sublist.clear();
+        for (int cc = 0; cc <= maxInSublist; cc++) {
+            for (int dd = 0; dd < sublist.size(); dd++) {
+
+                String temp = String.valueOf(sublist.get(dd));
+                char[] chars = temp.toCharArray();
+                int zeroIntegerCompare = Character.getNumericValue(chars[0]);
+
+                if (zeroIntegerCompare == cc) {
+                    int ind = sublist.get(dd);
+                    lowestLevelSublist.add(ind);
+                }
+            }
+
+            if (!lowestLevelSublist.isEmpty()) {
+                if (lowestLevelSublist.size() == 1) {
+                    resultsList.addAll(lowestLevelSublist);
+                    lowestLevelSublist.clear();
+
+                } else {
+                    Collections.sort(lowestLevelSublist);
+                    resultsList.addAll(lowestLevelSublist);
+                    lowestLevelSublist.clear();
+                }
+            }
+        }
     }
 
-    @Override
-    public int compare(Object o1, Object o2) {
-        return 0;
+    private static int maxCharVal(List<Integer> findMax) {
+        int max = MIN_VALUE;
+
+        for (int el : findMax) {
+            String temp = String.valueOf(el);
+            char[] chars = temp.toCharArray();
+            int zeroIntegerCompare = Character.getNumericValue(chars[0]);
+
+            if (zeroIntegerCompare > max) {
+                max = Character.getNumericValue(chars[0]);
+            }
+        }
+        return max;
     }
 }

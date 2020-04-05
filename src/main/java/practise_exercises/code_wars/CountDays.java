@@ -6,14 +6,9 @@ import java.util.Date;
 public class CountDays {
 
     public String countDays(Date d) {
-
-        if (daysDifference(d) > 0) {
-            return "The day is in the past!";
-        } else if (daysDifference(d) < 0) {
-            return Math.abs(daysDifference(d)) + " days";
-        } else {
-            return "Today is the day!";
-        }
+        return daysDifference(d) > 0 ? "The day is in the past!"
+                : daysDifference(d) < 0 ? Math.abs(daysDifference(d)) + " days"
+                : "Today is the day!";
     }
 
     private long daysDifference(Date d) {

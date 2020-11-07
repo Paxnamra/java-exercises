@@ -2,55 +2,68 @@ package practise_exercises.code_wars;
 
 public class Int32ToIPv4 {
     public static String longToIP(long ip) {
-        String firstOctet, secondOctet, thirdOctet, fourthOctet;
-
-        String binary = toBinary(ip);
-        int size = binary.length();
-
-        fourthOctet = toInteger(binary.substring(24, size));
-        thirdOctet = toInteger(binary.substring(16, 24));
-        secondOctet = toInteger(binary.substring(8, 16));
-        firstOctet = toInteger(binary.substring(0, 8));
-
-        StringBuilder sb = new StringBuilder();
-
-        return sb.append(firstOctet)
-                .append(".")
-                .append(secondOctet)
-                .append(".")
-                .append(thirdOctet)
-                .append(".")
-                .append(fourthOctet)
-                .toString();
-    }
-
-    public static String toInteger(String input) {
-        return String.valueOf(Integer.parseInt(input, 2));
+        return toBinary(ip);
     }
 
     private static String toBinary(long n) {
+        String[] binaryArr = new String[4];
         String binaryNum = "";
         int counter = 0;
+        int index = 0;
 
         while (n > 0) {
             binaryNum = ((n % 2) == 0 ? "0" : "1") + binaryNum;
             counter++;
+
+            if (counter == 8) {
+                binaryArr[index] = binaryNum;
+                index++;
+
+                binaryNum = "";
+                counter = 0;
+            }
             n /= 2;
         }
-        System.out.println("Operations counted: " + counter);
 
-        return binaryNum;
+        if (counter != 0) {
+            String lastByte = zerosDifference(counter);
+            binaryArr[index++] = lastByte + binaryNum;
+        }
+
+        fieldsToInts(binaryArr);
+        String[] orderedArr = new String[4];
+
+        for (int i = 0; i < orderedArr.length; i++) {
+            orderedArr[i] = binaryArr[orderedArr.length - i - 1];
+        }
+
+        return String.join(".", orderedArr);
     }
 
-    public static void main(String[] args) {
-        //System.out.println(longToIP(15L));
-        System.out.println(longToIP(2149583361L)); //351917844 <-- 00010100111110011101011100010100
-        System.out.println(toBinary(215)); //43989748 <-- 10100111110011101011110100
-        //toBinary(65);
-        //System.out.println(toInteger("011111000100010100000111100111000"));
-        //87.7.4].0 --> [174.14.8].0 --->
-        //System.out.println(longToIP(16L));
-        //System.out.println(longToIP(0L));
+    public static String toLong(String input) {
+        return String.valueOf(Long.parseLong(input, 2));
+    }
+
+    private static String zerosDifference(int counter) {
+        int addZeros = 8 - counter;
+        String lastByte = "";
+
+        while (addZeros != 0) {
+            lastByte += "0";
+            --addZeros;
+        }
+        return lastByte;
+    }
+
+    private static void fieldsToInts(String[] binaryArr) {
+        for (int i = 0; i < binaryArr.length; i++) {
+            if (binaryArr[i] == null) {
+                binaryArr[i] = toLong("00000000");
+            }
+
+            String a = toLong(binaryArr[i]);
+            binaryArr[i] = a;
+        }
     }
 }
 

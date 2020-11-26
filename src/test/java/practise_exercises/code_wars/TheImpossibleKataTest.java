@@ -21,16 +21,19 @@ public class TheImpossibleKataTest {
         Assert.assertTrue("Failed obviously...FALSE is NOT TRUE", FinalBoolean.FALSE);
     }
 
-    private static void setFinalStaticField(Class<?> clazz, String fieldName, Object value)
-            throws ReflectiveOperationException {
+    private static void setFinalStaticField(Class<?> clazz, String fieldName, Object value) {
 
-        Field field = clazz.getDeclaredField(fieldName);
-        field.setAccessible(true);
+        try {
+            Field field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(true);
 
-        Field modifiers = field.getClass().getDeclaredField("modifiers");
-        modifiers.setAccessible(true);
-        modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            Field modifiers = field.getClass().getDeclaredField("modifiers");
+            modifiers.setAccessible(true);
+            modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
 
-        field.set(null, value);
+            field.set(null, value);
+        } catch (ReflectiveOperationException roe) {
+            roe.printStackTrace();
+        }
     }
 }

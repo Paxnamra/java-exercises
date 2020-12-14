@@ -58,7 +58,20 @@ public class BinaryTreeMax {
         // Traverse right
         inorder(TreeNode.right);
     }
-    
+
+    static void postorderStepsDescription(TreeNode treeNode, int parentVal, String branch) {
+        if (treeNode == null) {
+            System.out.printf("TreeNode %d has no kids on the %s%n", parentVal, branch);
+            return;
+        }
+        System.out.printf("Checking from %d %n", treeNode.value);
+
+        postorderStepsDescription(treeNode.left, treeNode.value, "lefty");
+        postorderStepsDescription(treeNode.right, treeNode.value, "righty");
+
+        System.out.printf("traversed from %d to %d %n", parentVal, treeNode.value);
+    }
+
     public static int maxSum(TreeNode node) {
         return 0;
     }
@@ -80,5 +93,9 @@ public class BinaryTreeMax {
 
         System.out.println("\nInorder: ");
         inorder(root);
+
+        System.out.println();
+        System.out.println("\nPostorder with steps described traversal: ");
+        postorderStepsDescription(root, root.value, "Root, man...");
     }
 }

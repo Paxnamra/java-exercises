@@ -73,7 +73,14 @@ public class BinaryTreeMax {
     }
 
     public static int maxSum(TreeNode node) {
-        return 0;
+        if (node == null) {
+            return 0;
+        }
+
+        int lefty = maxSum(node.left);
+        int righty = maxSum(node.right);
+
+        return Math.max(lefty, righty) + node.value;
     }
 
 
@@ -97,5 +104,9 @@ public class BinaryTreeMax {
         System.out.println();
         System.out.println("\nPostorder with steps described traversal: ");
         postorderStepsDescription(root, root.value, "Root, man...");
+
+        System.out.println();
+        System.out.println("Max value is: " + maxSum(root));
+
     }
 }

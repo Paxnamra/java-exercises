@@ -47,16 +47,16 @@ public class BinaryTreeMax {
         postorder(TreeNode.right);
     }
 
-    static void inorder(TreeNode TreeNode) {
-        if (TreeNode == null)
+    static void inorder(TreeNode treeNode) {
+        if (treeNode == null)
             return;
 
         // Traverse left
-        inorder(TreeNode.left);
+        inorder(treeNode.left);
         // Traverse root
-        System.out.print(TreeNode.value + " ");
+        System.out.print(treeNode.value + " ");
         // Traverse right
-        inorder(TreeNode.right);
+        inorder(treeNode.right);
     }
 
     static void postorderStepsDescription(TreeNode treeNode, int parentVal, String branch) {
@@ -73,14 +73,7 @@ public class BinaryTreeMax {
     }
 
     public static int maxSum(TreeNode node) {
-        if (node == null) {
-            return 0;
-        }
-
-        int lefty = maxSum(node.left);
-        int righty = maxSum(node.right);
-
-        return Math.max(lefty, righty) + node.value;
+        return node != null ? Math.max(maxSum(node.left), maxSum(node.right)) + node.value : 0;
     }
 
 
@@ -107,6 +100,5 @@ public class BinaryTreeMax {
 
         System.out.println();
         System.out.println("Max value is: " + maxSum(root));
-
     }
 }

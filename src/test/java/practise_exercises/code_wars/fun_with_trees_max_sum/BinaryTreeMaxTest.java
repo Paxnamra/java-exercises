@@ -36,4 +36,10 @@ public class BinaryTreeMaxTest {
         BinaryTreeMax.postorder(node);
         Assert.assertEquals("3 4 1 2 0", outputStream.toString().trim());
     }
+
+    @Test
+    public void shouldBinaryTreeMax_preorderTraverseTree_AndReturnVisitedNodesValues() {
+        BinaryTreeMax.preorder(node);
+        Assert.assertEquals("0 1 3 4 2", outputStream.toString().trim());
+    }
 }

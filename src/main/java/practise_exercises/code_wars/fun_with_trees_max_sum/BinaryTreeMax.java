@@ -41,10 +41,10 @@ public class BinaryTreeMax {
 
         // Traverse left
         postorder(TreeNode.left);
-        // Traverse root
-        System.out.print(TreeNode.value + " ");
         // Traverse right
         postorder(TreeNode.right);
+        // Traverse root
+        System.out.print(TreeNode.value + " ");
     }
 
     static void inorder(TreeNode treeNode) {
